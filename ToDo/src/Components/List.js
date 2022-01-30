@@ -3,7 +3,6 @@ import Task from "./Task";
 
 class List extends React.Component{
     render() {
-        console.log(this.props.todos);
         return (
             <ul>
                 {this.props.todos.map((todo) => <Task key={todo.id} todo={todo} deleteTodo={this.props.deleteTodo} toggleTodo={this.props.toggleTodo}/>)}

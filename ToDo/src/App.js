@@ -3,7 +3,7 @@ import React from 'react';
 import axios from 'axios';
 import Form from './Components/Form';
 import List from './Components/List';
-import { API_URL, todosLimit } from './Constants/URL';
+import { apiUrl, TODOS_LIMIT } from './Constants/URL';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,13 +12,12 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.querytodo();
-    console.log('State ' + this.state.todos)
+    this.queryTodo();
   }
 
-  querytodo = async () => {
+  queryTodo = async () => {
     try {
-        const { data } = await axios.get(`${API_URL}?_limit=${todosLimit}`);
+        const { data } = await axios.get(`${apiUrl}?_limit=${TODOS_LIMIT}`);
         this.setState({ todos: data });
     } catch (error) {
         return false;
@@ -28,7 +27,7 @@ class App extends React.Component {
   addTodo = async (todo) => {
     try {
         const body = { todo, id: Date.now(), completed: false };
-        await axios.post(API_URL, body);
+        await axios.post(apiUrl, body);
         this.setState({ todos: [...this.state.todos, todo] });
     } catch (error) {
         return false;
@@ -37,7 +36,7 @@ class App extends React.Component {
 
   deleteTodo = async (id) => {
     try {
-        await axios.delete(`${API_URL}/${id}`);
+        await axios.delete(`${apiUrl}/${id}`);
         this.setState({ todos: this.state.todos.filter(item => item.id !== id) });
     } catch (error) {
         return false;
@@ -50,7 +49,6 @@ toggleTodo = (id) => {
 }
 
 render() {
-  console.log("Render State " + this.state.todos)
     return (
       <div className='App'>
         <Form addTodo={this.addTodo}/>

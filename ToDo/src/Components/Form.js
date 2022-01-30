@@ -6,17 +6,14 @@ class Form extends React.Component {
         this.state = { title: '' };
     }
 
-    handleInputChange = (evt) => {
-        this.setState({title: evt.target.value})
-    }
-
+    handleInputChange = (evt) => this.setState({title: evt.target.value});
+    
     handleButtonClick = () => {
         this.props.addTodo({complete: false, id: Date.now(), title: this.state.title})
         this.setState({title: ''})
     }
 
     render () {
-        console.log(this.state.title);
         return (
             <div>
                 <input value={this.state.title} onChange={this.handleInputChange} type="text" placeholder="Type your task"/>
